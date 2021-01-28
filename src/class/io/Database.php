@@ -133,6 +133,7 @@
             $log->d("exec time: ".($m*1000)." ms");
             return $result;
         }
+        // mysqli::query($query, $resultmode = NULL) ***
 
         public function next_id($table){
             global $log, $mysqli;
@@ -269,7 +270,7 @@ Testé sans succès, mais j'ai avant de me casser la tête
             $values = $obj->get_same_values();
             if($values == NULL){
                 $row = NULL;
-                break;
+                // break; ***
             }
 
             foreach ($values as $k => $v) {
