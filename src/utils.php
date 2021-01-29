@@ -223,7 +223,7 @@ function console_log( $data ){
                 $alert = $message;
                 break;
             case 2:
-                $message = "La taille du dichier téléchargé excède la valeur MAX_FILE_SIZE, qui a été spécifiée dans le formulaire HTML";
+                $message = "La taille du fichier téléchargé excède la valeur MAX_FILE_SIZE, qui a été spécifiée dans le formulaire HTML";
                 $log = $message;
                 $alert = $message;
                 break;

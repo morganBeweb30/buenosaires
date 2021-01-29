@@ -12,10 +12,10 @@
         public function __construct(){
             global $log;
 
-            parent::__construct(SQL_SERVER,
-                                SQL_USER,
-                                SQL_PASS,
-                                SQL_DATABASE_NAME);
+            parent::__construct(SQL_SERVER, // erreur 210128 soon deprecated ***
+                                SQL_USER, //  "
+                                SQL_PASS, //  "
+                                SQL_DATABASE_NAME); //  " + erreur : Warning: mysqli::__construct(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 18 ***
 
             if(mysqli_connect_error()){
                 $log->e("Erreur de connexion (" . mysqli_connect_errno() . ') ' . mysqli_connect_error());
@@ -119,7 +119,7 @@
             return $this->query($s);
         }
 
-        public function query($requete){
+        public function query($requete){  //  *** erreur 210128
             global $log;
 
             $log->i(trim($requete));
@@ -133,7 +133,8 @@
             $log->d("exec time: ".($m*1000)." ms");
             return $result;
         }
-        // mysqli::query($query, $resultmode = NULL) ***
+        //  Erreur mysqli::query($query, $resultmode = NULL) ***
+        // mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] )
 
         public function next_id($table){
             global $log, $mysqli;

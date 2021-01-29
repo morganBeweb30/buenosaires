@@ -13,7 +13,10 @@ matrimonios*.xml
 test-*.xml
 bricolages
 
-# dossier perso :
+# dossier perso
 perso/
 
+
+# workspace
+buenosaires.code-workspace
 

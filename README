@@ -5,7 +5,7 @@ Activer mod_rewrite de Apache2
 
     cmd: a2enmod rewrite
     cmd: service apache2 restart
-
+    # ou systemctl restart apache2
 
 
 Fichier de config Apache2 (site-enebled/000-default.conf)

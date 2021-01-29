@@ -8,7 +8,7 @@ echo "<br>";
 // end #devOnly
 
 echo 'buenosaires/index.php ok';
-phpinfo();
+// phpinfo();
 
 
     $exec_time_script = microtime(TRUE);
@@ -30,7 +30,7 @@ phpinfo();
 
     $log = new Log();
     $alert = new Alert();
-//    $mysqli = new Database();
+   $mysqli = new Database(); // ***
     $account = new Account();
 
     include_once(ROOT."src/URLRewritter.php");
