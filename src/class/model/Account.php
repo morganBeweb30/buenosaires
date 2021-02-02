@@ -26,6 +26,7 @@
             if(isset($this->infos["email"]) && isset($this->infos["pwd"])){
                 $email = $this->get_email();
                 $pass = $this->get_password();
+                var_dump($pass);  //  ***
                 $res = $mysqli->select("utilisateurs", "*", "email='$email' && pwd='$pass'");
 
                 if($res->num_rows == 1){

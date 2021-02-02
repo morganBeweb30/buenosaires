@@ -1,21 +1,17 @@
 <?php
 
-// afficher les erreurs /!\ #devOnly /!\
+// afficher les erreurs /!\ #devOnly /!\  ***
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 include("/home/morgan/internet/file_with_errors.php");
 echo "<br>";
 // end #devOnly
 
-echo 'buenosaires/index.php ok';
-// phpinfo();
-
-
     $exec_time_script = microtime(TRUE);
 
     define("ROOT", __DIR__ . "/");
 
-    // session_start();
+    session_start();
 
     $url_parsed = [];
     $ARGS = [];
@@ -26,14 +22,27 @@ echo 'buenosaires/index.php ok';
     include_once(ROOT."src/class/Log.php");
     include_once(ROOT."src/class/Alert.php");
     include_once(ROOT."src/class/model/Account.php");
-    include_once(ROOT."src/class/io/Database.php");
+    include_once(ROOT."src/class/io/Database.php");  // ***
+    // include_once(ROOT."src/class/io/test_db.php");  //  ***
 
     $log = new Log();
     $alert = new Alert();
-   $mysqli = new Database(); // ***
+    // TEST  RAPPORT D'ERREUR
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    $mysqli = new Database(); // ***
     $account = new Account();
 
     include_once(ROOT."src/URLRewritter.php");
+
+    //  TEST INFOS BDD ***
+    echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
+    if($result = $mysqli->query("SELECT * FROM prenoms")) {
+      printf("Select a retourné %d lignes.<br>", $result->num_rows);
+      $result->close();
+    } else {
+      printf('Pas de résultat<br>');
+    }
+    //  FIN TEST ***
 
     if(!is_dir(TMP_DIRECTORY))
         mkdir(TMP_DIRECTORY, 0777);
@@ -106,7 +115,7 @@ echo 'buenosaires/index.php ok';
 <html>
     <head>
         <meta charset="utf-8">
-        <base href="<?php echo BASE_URL; ?>">
+        <!-- base href="<?php // echo "BASE_URL"; ?>" ***-->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -125,7 +134,7 @@ echo 'buenosaires/index.php ok';
         <script type="text/javascript" src="res/xmlselect/select_and_show.js"></script>
         <script type="text/javascript" src="res/xmlselect/xml_parser.js"></script>
         <script type="text/javascript" src="res/xmlselect/init.js"></script>
-        <title><?php echo $page_title; ?></title>
+        <title><?php echo $page_title. ' local'; ?></title>
     </head>
     <body>
         <div class="nav-bar">
@@ -153,7 +162,7 @@ echo 'buenosaires/index.php ok';
         }
     }
 
-    $mysqli->close();
+    // $mysqli->close(); ***
     $exec_time_script = microtime(TRUE) - $exec_time_script;
     $log->i("EXEC TIME SCRIPT PAGE ".($exec_time_script *1000)." ms");
     $log->write();

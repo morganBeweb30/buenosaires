@@ -12,19 +12,26 @@
         public function __construct(){
             global $log;
 
-            parent::__construct(SQL_SERVER, // erreur 210128 soon deprecated ***
-                                SQL_USER, //  "
-                                SQL_PASS, //  "
-                                SQL_DATABASE_NAME); //  " + erreur : Warning: mysqli::__construct(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 18 ***
+            parent::__construct('localhost', 'morgan', 'Nimport5quoi', 'buenosaires');  //  ***
+                                /*  "SQL_SERVER", // erreur 210128 soon deprecated ***
+                                "SQL_USER", //  "
+                                "SQL_PASS", //  "
+                                "SQL_DATABASE_NAME"); //  " + erreur : Warning: mysqli::__construct(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 18 ***
+                                */
+            // $mysqli = new mysqli('localhost', 'morgan', 'Nimport5quoi', 'buenosaires');  //  ***
 
             if(mysqli_connect_error()){
                 $log->e("Erreur de connexion (" . mysqli_connect_errno() . ') ' . mysqli_connect_error());
+            } else {
+              //  *** TEST CONNEX BDD */
+              echo "conn bdd ok";
             }
         }
 
         public function select($table, $columns, $where = "", $more = ""){
             global $log;
 
+            $columns = [];  //  ***
             $s = "SELECT ";
 
             for($i = 0; $i < count($columns); $i++){
@@ -119,6 +126,7 @@
             return $this->query($s);
         }
 
+        //***   ERREUR EMPECHE CONNEXION A LA BDD ***/
         public function query($requete){  //  *** erreur 210128
             global $log;
 
@@ -154,7 +162,7 @@
                 return FALSE;
             }
 
-            $database_name = SQL_DATABASE_NAME;
+            $database_name = "SQL_DATABASE_NAME";
             $s = "SELECT AUTO_INCREMENT as id FROM information_schema.tables WHERE table_name='$table' AND table_schema='$database_name'";
 
             $result = $this->query($s);

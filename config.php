@@ -1,6 +1,6 @@
 <?php
 
-//include('local-config.php');
+include('local-config.php');   // ***
 
 //  log default output file
 define("LOG_DEFAULT_OUTPUT", "log.txt");
