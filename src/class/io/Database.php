@@ -14,9 +14,12 @@
 
             parent::__construct('localhost', 'morgan', 'Nimport5quoi', 'buenosaires');  //  ***
                                 /*  "SQL_SERVER", // erreur 210128 soon deprecated ***
-                                "SQL_USER", //  "
-                                "SQL_PASS", //  "
-                                "SQL_DATABASE_NAME"); //  " + erreur : Warning: mysqli::__construct(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 18 ***
+                                "SQL_USER", //  ""
+                                "SQL_PASS", //  ""
+                                "SQL_DATABASE_NAME"); //  "" + erreur : Warning: mysqli::__construct(): 
+                                  (HY000/2002): php_network_getaddresses: getaddrinfo failed: Temporary failure 
+                                  in name resolution in 
+                                  /home/morgan/internet/buenosaires/src/class/io/Database.php on line 18 ***
                                 */
             // $mysqli = new mysqli('localhost', 'morgan', 'Nimport5quoi', 'buenosaires');  //  ***
 
@@ -28,26 +31,29 @@
             }
         }
 
+
         public function select($table, $columns, $where = "", $more = ""){
-            global $log;
+          global $log;
 
-            $columns = [];  //  ***
-            $s = "SELECT ";
+          // $columns = [];  //  ***  
+          $s = "SELECT ";
 
-            for($i = 0; $i < count($columns); $i++){
-                $s .= $columns[$i];
-                if($i < count($columns) -1)
-                    $s .= ", ";
-            }
+          /*  Warning: count(): Parameter must be an array or an object that implements Countable 
+          in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 41 ***/
+          for($i = 0; $i < count($columns); $i++){
+              $s .= $columns[$i];
+              if($i < count($columns) -1) //  *** même warning que ln 41
+                  $s .= ", ";
+          }
 
-            $s .= " FROM `$table`";
+          $s .= " FROM `$table`";
 
-            if(strlen($where) > 0)
-                $s .= " WHERE " . $where;
+          if(strlen($where) > 0)
+              $s .= " WHERE " . $where;
 
-            $s .= " " . $more;
+          $s .= " " . $more;
 
-            return $this->query($s);
+          return $this->query($s);
         }
 
         public function insert($table, $values, $more = ""){
@@ -126,8 +132,11 @@
             return $this->query($s);
         }
 
-        //***   ERREUR EMPECHE CONNEXION A LA BDD ***/
-        public function query($requete){  //  *** erreur 210128
+        /*   ERREUR N'EMPECHE PAS CONNEXION A LA BDD  210203
+          Warning: Declaration of Database::query($requete) should be compatible with mysqli::query($query, 
+          $resultmode = NULL) in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 136+
+          man : mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] ) ***/
+        public function query($requete){  //   erreur 210128
             global $log;
 
             $log->i(trim($requete));
@@ -139,10 +148,10 @@
                 return FALSE;
             }
             $log->d("exec time: ".($m*1000)." ms");
+            
             return $result;
         }
-        //  Erreur mysqli::query($query, $resultmode = NULL) ***
-        // mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] )
+        
 
         public function next_id($table){
             global $log, $mysqli;
@@ -279,7 +288,7 @@ Testé sans succès, mais j'ai avant de me casser la tête
             $values = $obj->get_same_values();
             if($values == NULL){
                 $row = NULL;
-                // break; ***
+                // break;  // erreur : break not in the 'loop' or 'switch' context  ***
             }
 
             foreach ($values as $k => $v) {

@@ -22,22 +22,26 @@ echo "<br>";
     include_once(ROOT."src/class/Log.php");
     include_once(ROOT."src/class/Alert.php");
     include_once(ROOT."src/class/model/Account.php");
-    include_once(ROOT."src/class/io/Database.php");  // ***
-    // include_once(ROOT."src/class/io/test_db.php");  //  ***
+    include_once(ROOT."src/class/io/Database.php");
 
     $log = new Log();
     $alert = new Alert();
     // TEST  RAPPORT D'ERREUR
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    $mysqli = new Database(); // ***
+    $mysqli = new Database();
     $account = new Account();
 
     include_once(ROOT."src/URLRewritter.php");
 
     //  TEST INFOS BDD ***
     echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
-    if($result = $mysqli->query("SELECT * FROM prenoms")) {
+    if($result = $mysqli->query("SELECT * FROM utilisateurs")) {
       printf("Select a retourné %d lignes.<br>", $result->num_rows);
+      $donnees = $result->fetch_row();
+      foreach($donnees as $donnee) {
+        echo '<br>'.$donnee;
+      }
+      
       $result->close();
     } else {
       printf('Pas de résultat<br>');
@@ -54,7 +58,10 @@ echo "<br>";
         }else if($_POST["action"] == "connexion" && isset($_POST['connect_email'], $_POST['connect_pass']) && !$account->is_connected){
             $account->set_email(safe($_POST['connect_email']));
             $account->set_password(safe(md5($_POST['connect_pass'])));
-            if($account->connect())
+            /*  *** Erreur 
+              si on corrige Database.php ln 41 en initialisant $columns en []  
+              --> manque * ou id dans select  from uilisateurs  ***/
+            if($account->connect())   
                 $alert->success("Connexion réussie");
             else
                 $alert->warning("Echec de la connexion");
@@ -115,7 +122,7 @@ echo "<br>";
 <html>
     <head>
         <meta charset="utf-8">
-        <!-- base href="<?php // echo "BASE_URL"; ?>" ***-->
+        <base href="<?php echo "BASE_URL"; ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -162,7 +169,7 @@ echo "<br>";
         }
     }
 
-    // $mysqli->close(); ***
+    $mysqli->close();
     $exec_time_script = microtime(TRUE) - $exec_time_script;
     $log->i("EXEC TIME SCRIPT PAGE ".($exec_time_script *1000)." ms");
     $log->write();
