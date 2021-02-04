@@ -26,26 +26,23 @@ echo "<br>";
 
     $log = new Log();
     $alert = new Alert();
-    // TEST  RAPPORT D'ERREUR
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $mysqli = new Database();
     $account = new Account();
 
     include_once(ROOT."src/URLRewritter.php");
 
     //  TEST INFOS BDD ***
-    echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
-    if($result = $mysqli->query("SELECT * FROM utilisateurs")) {
-      printf("Select a retourné %d lignes.<br>", $result->num_rows);
-      $donnees = $result->fetch_row();
-      foreach($donnees as $donnee) {
-        echo '<br>'.$donnee;
-      }
-      
-      $result->close();
-    } else {
-      printf('Pas de résultat<br>');
-    }
+    // echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
+    // if($result = $mysqli->query("SELECT * FROM prenom")) {
+    //   printf("Select a retourné %d lignes.<br>", $result->num_rows);
+    //   $donnees = $result->fetch_row();
+    //   foreach($donnees as $donnee) {
+    //     echo '<br>'.$donnee;
+    //   }
+    //   $result->close();
+    // } else {
+    //   printf('Pas de résultat<br>');
+    // }
     //  FIN TEST ***
 
     if(!is_dir(TMP_DIRECTORY))

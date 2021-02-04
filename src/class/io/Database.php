@@ -25,12 +25,11 @@
 
             if(mysqli_connect_error()){
                 $log->e("Erreur de connexion (" . mysqli_connect_errno() . ') ' . mysqli_connect_error());
-            } else {
-              //  *** TEST CONNEX BDD */
+            } /* else {
+              //  *** TEST CONNEX BDD 
               echo "conn bdd ok";
-            }
+            } ***/
         }
-
 
         public function select($table, $columns, $where = "", $more = ""){
           global $log;
@@ -569,6 +568,7 @@ Testé sans succès, mais j'ai avant de me casser la tête
                 if(!isset($obj->id)){
                     $new_id = $this->next_id($obj->get_table_name());
                     if($new_id == 0){
+                        /*  Notice: Undefined property: Prenom::$table_name in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 571  ***/
                         $log->e("Aucun nouvel id trouvé pour l'insert dans $obj->table_name");
                         return FALSE;
                     }

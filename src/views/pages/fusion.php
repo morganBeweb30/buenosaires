@@ -442,7 +442,7 @@ Ce que je ne comprends pas encore c'est pourquoi l'id n'est pas modifié sur les
             <section class='max-2'>
                 <h4>Choisir deux personnes à fusionner</h4>
                 <div>
-                    <input type='text' name='autocomplete' placeholder='Recherche parmis les personnes'>
+                    <input type='text' name='autocomplete' placeholder='Recherche parmi les personnes'>
                     <span class='autocomplete-search'>recherche en cours ...</span>
                 </div>
                 <div id='auto-complete-results'>
