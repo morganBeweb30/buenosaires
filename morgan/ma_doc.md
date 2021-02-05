@@ -1,6 +1,6 @@
 
-? questions/réflexions/recherches
 
+? questions/réflexions/recherches
 
 
 ## CODE 
@@ -36,7 +36,26 @@ L'import a l'air de se faire correctement.
 
 ### Autres
 
-Export fichiers "toutes les relations" ne comporte pas de données. Dans ma BDD j'ai l'acte de mariage de Belgrano et celui d'une de ses filles. Il ne devrait pas y avoir au moins une relation entre eux 2 ?
+*  Export fichier "toutes les relations" ne comporte pas de données. Dans ma BDD j'ai l'acte de mariage de Belgrano et celui d'une de ses filles. Il ne devrait pas y avoir au moins une relation entre eux 2 ?
+
+*   Afin de maintenir la rétrocompatibilité avec PHP 4, PHP 5 continue d'accepter **l'usage du mot-clé var pour la déclaration de propriétés** en remplacement de (ou en plus de) public, protected, et private. Cependant, var n'est plus requis par le modèle objet de PHP 5. Pour les versions allant de PHP 5.0 à 5.1.3, l'usage de var était considéré comme obsolète et déclenchait un avertissement de niveau E_STRICT, mais depuis PHP 5.1.3, l'usage n'est plus obsolète et ne déclenche plus d'avertissement.
+Si vous déclarez une propriété en utilisant var au lieu de public, protected, ou private, alors PHP 5 traitera la propriété comme si elle avait été déclarée comme public. 
+=> remplacer _var_ par _public_ sera plus clair.
+
+*  var = [] à remplacer par var = array() ? (ex Acte.php ln 23)
+
+
+### Structure / organisation
+
+**config.php** regroupe des **variables et CONSTANTES**
+**utils.php** regroupe des **fonctions**
+
+Dans les **classes** (sauf Database), un certain nombre de **méthodes** sur la bdd sont **communes** : les **regrouper**.
+
+
+
+
+
 
 
 ## TECHNOS V2.1

@@ -57,7 +57,7 @@ echo "<br>";
             $account->set_password(safe(md5($_POST['connect_pass'])));
             /*  *** Erreur 
               si on corrige Database.php ln 41 en initialisant $columns en []  
-              --> manque * ou id dans select  from uilisateurs  ***/
+              --> manque * ou id dans select  from uilisateurs ==> bloquant  ***/
             if($account->connect())   
                 $alert->success("Connexion réussie");
             else
