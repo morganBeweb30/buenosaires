@@ -31,9 +31,10 @@ echo "<br>";
 
     include_once(ROOT."src/URLRewritter.php");
 
+
     //  TEST INFOS BDD ***
     // echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
-    // if($result = $mysqli->query("SELECT * FROM prenom")) {
+    // if($result = $mysqli->query("SELECT * FROM acte_has_relation")) {
     //   printf("Select a retourné %d lignes.<br>", $result->num_rows);
     //   $donnees = $result->fetch_row();
     //   foreach($donnees as $donnee) {
