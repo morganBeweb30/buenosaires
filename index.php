@@ -79,7 +79,7 @@ echo "<br>";
                 $alert->warning("Accès a un contenu restreint");
             }
         }else{
-            if(can_access($access_pages[$url_parsed["page"]])){
+            if(can_access($access_pages[$url_parsed["page"]])){   /*  Notice: Undefined index: resultat in /home/morgan/internet/buenosaires/index.php on line 82 *** */
                 $view = ROOT."src/views/pages/" . $url_parsed["include"] . ".php";
                 $page_title = $url_parsed["title"];
             }else{

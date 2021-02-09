@@ -145,6 +145,9 @@
           $values["date_start"] = $this->date_start;
       if(isset($this->date_end))
           $values["date_end"] = $this->date_end;
+      
+      foreach($values as $value) 
+        // echo '<br>'.$value;   /*  ***/
       return $values;
     }
 

@@ -20,7 +20,9 @@
                 $log->e("Impossible d'ouvrir le fichier $filename");
                 $alert->error("Erreur lors de l'upload du/des actes(s)");
                 return FALSE;
-            }
+            } // else {
+            //   var_dump($filename);   /* ok ***
+            // 
 
             $use_errors = libxml_use_internal_errors(TRUE);
             $this->xml = simplexml_load_file($filename);

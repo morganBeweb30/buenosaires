@@ -28,7 +28,7 @@
         if($_POST["form_type"] === "file"){
             $filename = receive_file("import_file");
             $only_new = isset($_POST["import_file_only_new"]);
-            $source_id = $_POST["import_file_source"];
+            $source_id = $_POST["import_file_source"];  /* Notice: Undefined index: import_file_source in /home/morgan/internet/buenosaires/src/views/pages/import.php on line 31  ***/
         }else if($_POST["form_type"] === "text"){
             $filename = receive_text($_POST['import_text']);
 	    // le texte est copié dans un fichier temporaire
@@ -44,9 +44,11 @@
 	 */
 
         if($filename != NULL){
+          // var_dump($filename);  /*  ok ***/
             chmod($filename, 0776);
             $reader = new XMLActeReader($source_id);
             $reader->use_xml_file($filename);
+
             $reader->read_actes($only_new);
             unlink($filename);
         }
