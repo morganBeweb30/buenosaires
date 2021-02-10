@@ -226,7 +226,8 @@ Testé sans succès, mais j'ai avant de me casser la tête
 	   */
             global $log;
 
-            $log->d("from database: ".get_class($obj)." id=$obj->id");
+
+            $log->d("from database: ".get_class($obj)." id=$obj->id");  //  $obj->id : null ***
             $row = NULL;
             if(isset($obj->id)){
                 $row = $this->from_db_by_id($obj);

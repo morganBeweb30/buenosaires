@@ -1,10 +1,10 @@
 <?php
 
 // afficher les erreurs /!\ #devOnly /!\  ***
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-include("/home/morgan/internet/file_with_errors.php");
-echo "<br>";
+// error_reporting(E_ALL);
+// ini_set("display_errors", 1);
+// include("/home/morgan/internet/file_with_errors.php");
+// echo "<br>";
 // end #devOnly
 
     $exec_time_script = microtime(TRUE);
@@ -32,20 +32,6 @@ echo "<br>";
     include_once(ROOT."src/URLRewritter.php");
 
 
-    //  TEST INFOS BDD ***
-    // echo '<br>dbname : '.SQL_DATABASE_NAME.'<br>';  //  ***
-    // if($result = $mysqli->query("SELECT * FROM acte_has_relation")) {
-    //   printf("Select a retourné %d lignes.<br>", $result->num_rows);
-    //   $donnees = $result->fetch_row();
-    //   foreach($donnees as $donnee) {
-    //     echo '<br>'.$donnee;
-    //   }
-    //   $result->close();
-    // } else {
-    //   printf('Pas de résultat<br>');
-    // }
-    //  FIN TEST ***
-
     if(!is_dir(TMP_DIRECTORY))
         mkdir(TMP_DIRECTORY, 0777);
 
@@ -60,7 +46,7 @@ echo "<br>";
               si on corrige Database.php ln 41 en initialisant $columns en []  
               --> manque * ou id dans select  from uilisateurs ==> bloquant  ***/
             if($account->connect())   
-                $alert->success("Connexion réussie");
+                $alert->success("Connexion réussie !");
             else
                 $alert->warning("Echec de la connexion");
         }
@@ -139,7 +125,7 @@ echo "<br>";
         <script type="text/javascript" src="res/xmlselect/select_and_show.js"></script>
         <script type="text/javascript" src="res/xmlselect/xml_parser.js"></script>
         <script type="text/javascript" src="res/xmlselect/init.js"></script>
-        <title><?php echo $page_title. ' local'; ?></title>
+        <title><?php echo $page_title. ' local'; ?></title><!-- *** local *** -->
     </head>
     <body>
         <div class="nav-bar">
