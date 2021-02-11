@@ -272,7 +272,7 @@ Testé sans succès, mais j'ai avant de me casser la tête
             $values = $obj->get_same_values();
             if($values == NULL){
                 $row = NULL;
-                // break; ***
+                // break; // *** error : Break statement not within loop or switch
             }
 
             foreach ($values as $k => $v) {

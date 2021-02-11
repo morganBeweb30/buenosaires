@@ -13,6 +13,7 @@
 
     session_start();
 
+    
     $url_parsed = [];
     $ARGS = [];
     $page_title = "Buenos Aires";
@@ -65,7 +66,7 @@
                 $alert->warning("Accès a un contenu restreint");
             }
         }else{
-            if(can_access($access_pages[$url_parsed["page"]])){   /*  Notice: Undefined index: resultat in /home/morgan/internet/buenosaires/index.php on line 82 *** */
+            if(can_access($access_pages[$url_parsed["page"]])){   /*  Notice: Undefined index: resultat in index.php line 82 *** */
                 $view = ROOT."src/views/pages/" . $url_parsed["include"] . ".php";
                 $page_title = $url_parsed["title"];
             }else{
