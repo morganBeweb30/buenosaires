@@ -13,7 +13,6 @@
 
     session_start();
 
-    
     $url_parsed = [];
     $ARGS = [];
     $page_title = "Buenos Aires";
@@ -31,7 +30,6 @@
     $account = new Account();
 
     include_once(ROOT."src/URLRewritter.php");
-
 
     if(!is_dir(TMP_DIRECTORY))
         mkdir(TMP_DIRECTORY, 0777);
@@ -66,7 +64,7 @@
                 $alert->warning("Accès a un contenu restreint");
             }
         }else{
-            if(can_access($access_pages[$url_parsed["page"]])){   /*  Notice: Undefined index: resultat in index.php line 82 *** */
+            if(can_access($access_pages[$url_parsed["page"]])){   /*  Notice: Undefined index: resultat in /home/morgan/internet/buenosaires/index.php on line 82 *** */
                 $view = ROOT."src/views/pages/" . $url_parsed["include"] . ".php";
                 $page_title = $url_parsed["title"];
             }else{
@@ -107,7 +105,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <base href="<?php echo "BASE_URL"; ?>">
+        <base href="<?php echo BASE_URL; ?>">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />

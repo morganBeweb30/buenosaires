@@ -544,26 +544,26 @@ Testé sans succès, mais j'ai avant de me casser la tête
         }
 
         private function into_db_insert($obj, $values){
-            global $log;
-            $new_id = NULL;
-            $result = FALSE;
-            $max_try = 2;
+          global $log;
+          $new_id = NULL;
+          $result = FALSE;
+          $max_try = 2;
 
-            while($result === FALSE && $max_try > 0){
-                if(!isset($obj->id)){
-                    $new_id = $this->next_id($obj->get_table_name());
-                    if($new_id == 0){
-                        $log->e("Aucun nouvel id trouvé pour l'insert dans $obj->table_name");
-                        return FALSE;
-                    }
-                    $obj->id = $new_id;
+          while($result === FALSE && $max_try > 0){
+            if(!isset($obj->id)){
+                $new_id = $this->next_id($obj->get_table_name());
+                if($new_id == 0){
+                    $log->e("Aucun nouvel id trouvé pour l'insert dans $obj->table_name");
+                    return FALSE;
                 }
-
-                $values["id"] = $obj->id;
-                $result = $this->insert($obj->get_table_name(), $values);
-                $max_try--;
+                $obj->id = $new_id;
             }
-            return $result;
+
+            $values["id"] = $obj->id;
+            $result = $this->insert($obj->get_table_name(), $values);
+            $max_try--;
+          }
+          return $result;
         }
 
         public function into_db_prenom_personne($personne, $prenom, $ordre){

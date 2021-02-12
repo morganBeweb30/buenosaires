@@ -20,6 +20,10 @@
     }
 
 
+    //  docu ***
+    //  IF $_POST["form_type"] existe
+    //    traitement différencié si file : appel receive_file()
+    //    ou text :  ou recieve_text() (depuis utils.php)
     if(isset($_POST["form_type"])){
         $filename;
         $only_new;
@@ -28,7 +32,7 @@
         if($_POST["form_type"] === "file"){
             $filename = receive_file("import_file");
             $only_new = isset($_POST["import_file_only_new"]);
-            $source_id = $_POST["import_file_source"];  /* Notice: Undefined index: import_file_source in /home/morgan/internet/buenosaires/src/views/pages/import.php on line 31  ***/
+            $source_id = $_POST["import_file_source"];
         }else if($_POST["form_type"] === "text"){
             $filename = receive_text($_POST['import_text']);
 	    // le texte est copié dans un fichier temporaire
@@ -42,7 +46,6 @@
 	  XMLActeReader->read_acte_node
 	  (via l'appel $reader->read_actes)
 	 */
-
         if($filename != NULL){
           // var_dump($filename);  /*  ok ***/
             chmod($filename, 0776);

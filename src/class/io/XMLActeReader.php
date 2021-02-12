@@ -13,6 +13,8 @@
             $this->source_id = $source_id;
         }
 
+        //  docu ***
+        //  traitement import d'un fichier
         public function use_xml_file($filename){
             global $log, $alert;
 
@@ -24,6 +26,16 @@
             //   var_dump($filename);   /* ok ***
             // 
 
+            //  docu ***
+            //  IF $filename existe
+            //  $use_errors utilise fct libxml_use_internal_errors pour stocker erreurs
+            //  $this->xml converti en objet
+            //  IF $this->xml === false
+            //    retour erreur > log.txt
+            //    retourne FALSE
+            //  vide le buffer des erreurs
+            //  désactive libxml_use_internal_errors
+            //  retourne TRUE
             $use_errors = libxml_use_internal_errors(TRUE);
             $this->xml = simplexml_load_file($filename);
             if($this->xml === FALSE){
@@ -31,8 +43,8 @@
                 echo $alert->html_error("Erreur lors de la lecture du fichier xml");
                 foreach(libxml_get_errors() as $error)
                 {
-                    $log->e($error->message);
-                    echo $alert->html_error($error->message);
+                  $log->e($error->message);
+                  echo $alert->html_error($error->message);
                 }
                 return FALSE;
             }
@@ -41,6 +53,17 @@
             return TRUE;
         }
 
+        //  docu ***
+        //  pour import copié-collé dans textarea
+        //  pre_process_acte_xml pour mettre tout le texte sur une seule ligne (depuis utils.php)
+        //  utilise libxml_use_internal_errors
+        //  IF objet $this->xml === false
+        //    log erreur parsing
+        //      un message par erreur
+        //    retourne FALSE  
+        //  vide le buffer des erreurs
+        //  désactive libxml_use_internal_errors
+        //  retourne TRUE
         public function use_xml_text($text){
             global $log, $alert;
 
@@ -58,6 +81,13 @@
             libxml_use_internal_errors($use_errors);
             return TRUE;
         }
+
+        //  docu ***
+        //  une fois le FICHIER reçu et validé, on l'étudie
+        //  par défaut, case "ignorer actes déjà balisés" non cochée
+        //  IF l'objet $this->xml n'existe pas
+        //    log erreur
+        //  IF l'objet contient 
 
         public function read_actes($only_new_acte = FALSE){
             global $log, $alert;
@@ -91,6 +121,12 @@
             return TRUE;
         }
 
+        //  PRIVATE FUNCTIONS   //
+
+        //  docu ***
+        //  doit lire les noeuds du xml ==>  vérifier ce qui est lu et envoyé
+        //  $xml->acte vient de read_actes()
+        //  position : position de l'acte   ***?
         private function read_acte($xml_acte, $position = NULL, $only_new_acte = FALSE){
             global $log, $alert, $mysqli;
             $acte_id = NULL;
@@ -123,6 +159,8 @@
                 return FALSE;
             }
 
+            //  docu ***
+            //  instanciation d'un objet Acte (/src/class/model/Acte.php)
             $acte = new Acte($acte_id);
             $acte->source_id = $this->source_id;
             $this->read_acte_node($acte, $xml_acte);
@@ -145,35 +183,37 @@
             return FALSE;
         }
 
+        //  PUBLIC FUNCTIONS   //
+
         function read_acte_node($acte, $xml_acte){
-            foreach($xml_acte->children() as $xml_child){
-                switch($xml_child->getName()){
-                    case "date":
-                        $acte->set_date($xml_child->__toString());
-                        break;
-                    case "epoux":
-                        $acte->set_epoux($this->read_personne_node($xml_child));
-                        break;
-                    case "epouse":
-                        $acte->set_epouse($this->read_personne_node($xml_child));
-                        break;
-                    case "temoins":
-                        foreach($xml_child->children() as $xml_temoin){
-                            if($xml_temoin->getName() === "temoin")
-                                $acte->add_temoin($this->read_personne_node($xml_temoin));
-                        }
-                        break;
-                    case "parrains":
-                        foreach($xml_child->children() as $xml_parrain){
-                            if($xml_parrain->getName() === "parrain")
-                                $acte->add_parrain($this->read_personne_node($xml_parrain));
-                        }
-                        break;
-                }
+          foreach($xml_acte->children() as $xml_child){
+            switch($xml_child->getName()){
+              case "date":
+                  $acte->set_date($xml_child->__toString());
+                  break;
+              case "epoux":
+                  $acte->set_epoux($this->read_personne_node($xml_child));
+                  break;
+              case "epouse":
+                  $acte->set_epouse($this->read_personne_node($xml_child));
+                  break;
+              case "temoins":
+                  foreach($xml_child->children() as $xml_temoin){
+                    if($xml_temoin->getName() === "temoin")
+                      $acte->add_temoin($this->read_personne_node($xml_temoin));
+                  }
+                  break;
+              case "parrains":
+                  foreach($xml_child->children() as $xml_parrain){
+                      if($xml_parrain->getName() === "parrain")
+                          $acte->add_parrain($this->read_personne_node($xml_parrain));
+                  }
+                  break;
             }
-            $xml_str = $xml_acte->asXML();
-            $xml_str = preg_replace('/(<\\?.*\\?>)/', '', $xml_str);
-            $acte->set_contenu($xml_str);
+          }
+          $xml_str = $xml_acte->asXML();
+          $xml_str = preg_replace('/(<\\?.*\\?>)/', '', $xml_str);
+          $acte->set_contenu($xml_str);
         }
 
         function read_personne_node($xml_personne){

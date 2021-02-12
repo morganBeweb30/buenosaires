@@ -43,15 +43,19 @@ function accent_uppercase($string){
     );
 }
 
+//  docu ***
+//  remplace "whitespace" (y compris retour à la ligne) par un espace
 function pre_process_acte_xml($acte_xml){
     return preg_replace('!\s+!', ' ', $acte_xml);
 }
 
+//  docu ***
+//  extrait et formate les dates, les stocke dans un tableau et retourne le tableau
 function read_date($date){
     $split = explode('-', trim($date));
     if(count($split) == 3){
         $d = format_date($split[2], $split[1], $split[0]);
-        return [$d, $d];
+        return [$d, $d];        //  c'est quoi ce tableau ? ***
     }else if(count($split) == 1){
         return [
             format_date($split[0], "01", "01"),
@@ -253,6 +257,8 @@ function error_message_receive_file($error_code){
     ];
 }
 
+//  docu ***
+//  
 function receive_file($key){
     global $alert, $log;
 
@@ -285,6 +291,8 @@ function receive_file($key){
     }
 }
 
+//  docu ***
+//  copie dans un fichier temporaire
 function receive_text($text){
     global $alert, $log;
 
@@ -313,8 +321,6 @@ function receive_text($text){
 }
 
 function append_unique_identifier($filename){
-  /* srand :     Note: Il n'est pas nécessaire d'initialiser le générateur de nombres 
-  aléatoires avec srand() ou mt_srand(), ceci est fait automatiquement.  ***/
     srand(intval(date("YmdHis")));
     return $filename."_".rand(1, 9999999);
 }

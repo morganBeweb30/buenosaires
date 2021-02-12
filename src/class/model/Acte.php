@@ -22,7 +22,7 @@
 
     function __construct($id = NULL, $contenu = NULL){
       $this->id = $id;
-      $this->source_id = SOURCE_DEFAULT_ID;
+      $this->source_id = SOURCE_DEFAULT_ID;   //  depuis config.php
       $this->contenu = NULL;
       $this->epoux = NULL;
       $this->epouse = NULL;
@@ -47,15 +47,15 @@
     }
 
     function set_date($date){
-        $dates = read_date($date);
+        $dates = read_date($date);    //  depuis utils.php  ***
         $this->date_start = $dates[0];
         $this->date_end = $dates[1];
     }
-
+    //  pourquoi add_temoin et pas set_temoin ? ***
     function add_temoin($temoin){
         $this->temoins[] = $temoin;
     }
-
+    //  idem pourquoi add_parrain / set_parrain ? ***
     function add_parrain($parrain){
         $this->parrains[] = $parrain;
     }
@@ -63,9 +63,9 @@
     function recursive_link_conditions_and_relations($personne){
       global $mysqli;
 
-      if(isset($personne->id) && $personne->is_valid()){
+      if(isset($personne->id) && $personne->is_valid()){    //  depuis Personne.php
         foreach($personne->relations as $relation)
-            $mysqli->into_db_acte_has_relation($this, $relation);
+            $mysqli->into_db_acte_has_relation($this, $relation); //  j'en étais là ****
 
         foreach($personne->conditions as $condition)
             $mysqli->into_db_acte_has_condition($this, $condition);

@@ -271,10 +271,10 @@ CREATE TABLE `source` (
 --/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `statut`
+-- Table structure for table `statut` --  //  *** ok 210212
 --
 
-DROP TABLE IF EXISTS `statut`;
+DROP TABLE IF EXISTS `statut`;    --  //  *** ok 210212
 --/*!40101 SET @saved_cs_client     = @@character_set_client */;
 --/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `statut` (
@@ -303,7 +303,7 @@ CREATE TABLE `tag` (
   CONSTRAINT `fk_tag_categorie1` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tag_tag1` FOREIGN KEY (`parent_tag`) REFERENCES `tag` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
---/*!40101 SET character_set_client = @saved_cs_client */;
+--  /*!40101 SET character_set_client = @saved_cs_client*/;
 
 --
 -- Table structure for table `utilisateurs`
