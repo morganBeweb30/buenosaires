@@ -22,27 +22,35 @@
             }
         }
 
-        public function select($table, $columns, $where = "", $more = ""){
+        //  docu ***
+        //  requête select complétée avec els données envoyées via d'autres fichiers
+        //  ==> indiquer d'où viennent les données ***
+        public function select($table, $columns, $where = "", $more = ""){    //  d'où viennent ces données ?  ***
             global $log;
 
             $s = "SELECT ";
 
-            for($i = 0; $i < count($columns); $i++){
+            //  docu ***
+            //  Warning: count(): Parameter must be an array or an object that implements Countable in 
+            //  /home/morgan/internet/buenosaires/src/class/io/Database.php on line 32 et line 34
+            for($i = 0; $i < count($columns); $i++){  //  *** d'où vient $columns ?
                 $s .= $columns[$i];
                 if($i < count($columns) -1)
                     $s .= ", ";
             }
 
-            $s .= " FROM `$table`";
+            $s .= " FROM `$table`"; //  d'où vient $table ? ***
 
             if(strlen($where) > 0)
-                $s .= " WHERE " . $where;
+                $s .= " WHERE " . $where; //  *** d'où vient $where ?
 
-            $s .= " " . $more;
+            $s .= " " . $more;  //  *** d'où vient $more ?
 
             return $this->query($s);
         }
 
+        // docu ***
+        //  ==> indiquer d'où viennent les données (comme au-dessus)
         public function insert($table, $values, $more = ""){
             global $log;
 
@@ -58,7 +66,7 @@
                 if(strcmp($value, "now()") == 0)
                     $vals .= $value;
                 else
-                    $vals .= "'" . $value . "'";
+                    $vals .= "'" . $value . "'";  //  *** on peut concaténer des variables et des strings avec ""
 
                 if($i < count($values) -1){
                     $keys .= ", ";
@@ -119,9 +127,16 @@
             return $this->query($s);
         }
 
-        public function query($requete){  //  *** erreur 210128
+        //  Warning: Declaration of Database::query($requete) should be compatible with mysqli::query($query, $resultmode = NULL)
+        //  Depuis PHP7 il faut préciser quelle utilisation de $resultmode on va faire : MYSQLI_USE_RESULT ou MYSQLI_STORE_RESULT 
+        //  Avant $resultmode = MYSQLI_USE_RESULT était appliqué par défaut
+        //  mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] )
+        public function query($requete, $resultmode = MYSQLI_USE_RESULT){
             global $log;
 
+            //  docu  ***
+            //  trim() retire les espaces+ en début et fin de chaîne
+            //  ne sert que pour log.txt
             $log->i(trim($requete));
             $m = microtime(TRUE);
             $result = parent::query($requete);
@@ -133,8 +148,6 @@
             $log->d("exec time: ".($m*1000)." ms");
             return $result;
         }
-        //  Erreur mysqli::query($query, $resultmode = NULL) ***
-        // mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] )
 
         public function next_id($table){
             global $log, $mysqli;
@@ -155,6 +168,9 @@
             }
 
             $database_name = SQL_DATABASE_NAME;
+
+            //  docu ***
+            //  permet de récupérer la dernière valeur de l'auto_incrémentation d'une base.table 
             $s = "SELECT AUTO_INCREMENT as id FROM information_schema.tables WHERE table_name='$table' AND table_schema='$database_name'";
 
             $result = $this->query($s);
@@ -227,7 +243,8 @@ Testé sans succès, mais j'ai avant de me casser la tête
             global $log;
 
 
-            $log->d("from database: ".get_class($obj)." id=$obj->id");  //  $obj->id : null ***
+            $log->d("from database: ".get_class($obj)." id=$obj->id");  //  $obj->id : null log.txt ***
+            
             $row = NULL;
             if(isset($obj->id)){
                 $row = $this->from_db_by_id($obj);
@@ -553,7 +570,7 @@ Testé sans succès, mais j'ai avant de me casser la tête
             if(!isset($obj->id)){
                 $new_id = $this->next_id($obj->get_table_name());
                 if($new_id == 0){
-                    $log->e("Aucun nouvel id trouvé pour l'insert dans $obj->table_name");
+                    $log->e("Aucun nouvel id trouvé pour l'insert dans $obj->table_name");  /* Notice: Undefined property: Prenom::$table_name in /home/morgan/internet/buenosaires/src/class/io/Database.php on line 556 ***/
                     return FALSE;
                 }
                 $obj->id = $new_id;

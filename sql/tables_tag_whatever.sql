@@ -8,13 +8,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Table structure for table `attribut`   --  //  *** ok 210212
+-- Table structure for table `attribut`   --  //  *** 
 -- -----------------------------------------------------
 -- From dump 2017, c'était pas dans le git,
 -- je vois pas où c'est utilisé à part dans `tag`,
 -- qui lui même ne me semble pas utilisé
 
-DROP TABLE IF EXISTS `attribut`;      --  //  *** ok 210212
+DROP TABLE IF EXISTS `attribut`;      --  //  *** 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `attribut` (
@@ -28,14 +28,14 @@ CREATE TABLE `attribut` (
 -- Dumping data for table `attribut`
 --
 
-LOCK TABLES `attribut` WRITE;       --  //  *** ok 210212
+LOCK TABLES `attribut` WRITE;       --  //  *** 
 /*!40000 ALTER TABLE `attribut` DISABLE KEYS */;
 INSERT INTO `attribut` VALUES (1,'de la'),(2,'de'),(3,'y');
 /*!40000 ALTER TABLE `attribut` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`categorie`  --  //  *** ok 210212
+-- Table `buenosaires`.`categorie`  --  //  *** 
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`categorie` ;
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`categorie` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`tag`    --  //  *** ok 210212
+-- Table `buenosaires`.`tag`    --  //  *** 
 -- -----------------------------------------------------
 -- Je vois pas où c'est utilisé, c'est vide dans le dump
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`tag` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_tag_categorie1_idx` ON `buenosaires`.`tag` (`categorie_id` ASC); --  //  *** ok 210212
+CREATE INDEX `fk_tag_categorie1_idx` ON `buenosaires`.`tag` (`categorie_id` ASC); --  //  *** 
 
 CREATE INDEX `fk_tag_tag1_idx` ON `buenosaires`.`tag` (`parent_tag` ASC);
 

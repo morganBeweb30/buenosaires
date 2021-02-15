@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`personne`   //  *** ok  210212
+-- Table `buenosaires`.`personne`   //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`personne` ;
 
@@ -20,7 +20,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`nom`  //  *** ok 210212
+-- Table `buenosaires`.`nom`  //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`nom` ;
 
@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`prenom` //  *** ok 210212
+-- Table `buenosaires`.`prenom` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`prenom` ;
 
@@ -46,7 +46,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`prenom_personne`  //  *** ok 210212
+-- Table `buenosaires`.`prenom_personne`  //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`prenom_personne` ;
 
@@ -67,13 +67,13 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`prenom_personne` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_personne_has_prenom_prenom1_idx` ON `buenosaires`.`prenom_personne` (`prenom_id` ASC);   -- //  *** ok 210212
+CREATE INDEX `fk_personne_has_prenom_prenom1_idx` ON `buenosaires`.`prenom_personne` (`prenom_id` ASC);   -- //  *** ok 210214
 
 CREATE INDEX `fk_personne_has_prenom_personne_idx` ON `buenosaires`.`prenom_personne` (`personne_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`nom_personne` //  *** ok 210212
+-- Table `buenosaires`.`nom_personne` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`nom_personne` ;
 
@@ -95,13 +95,13 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`nom_personne` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_personne_has_nom_nom1_idx` ON `buenosaires`.`nom_personne` (`nom_id` ASC);   -- //  *** ok 210212
+CREATE INDEX `fk_personne_has_nom_nom1_idx` ON `buenosaires`.`nom_personne` (`nom_id` ASC);   -- //  *** ok 210214
 
 CREATE INDEX `fk_personne_has_nom_personne1_idx` ON `buenosaires`.`nom_personne` (`personne_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`acte` //  *** ok 210212
+-- Table `buenosaires`.`acte` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`acte` ;
 
@@ -124,13 +124,13 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`acte` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_acte_personne1_idx` ON `buenosaires`.`acte` (`epoux` ASC); --  //  *** ok 210212
+CREATE INDEX `fk_acte_personne1_idx` ON `buenosaires`.`acte` (`epoux` ASC); --  //  *** ok 210214
 
 CREATE INDEX `fk_acte_personne2_idx` ON `buenosaires`.`acte` (`epouse` ASC);
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`acte_contenu` //  *** ok 210212
+-- Table `buenosaires`.`acte_contenu` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`acte_contenu` ;
 
@@ -147,7 +147,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`relation` //  *** ok 210212
+-- Table `buenosaires`.`relation` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`relation` ;
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`relation` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_relation_personne1_idx` ON `buenosaires`.`relation` (`pers_source_id` ASC);  --  //  *** ok 210212
+CREATE INDEX `fk_relation_personne1_idx` ON `buenosaires`.`relation` (`pers_source_id` ASC);  --  //  *** ok 210214
 
 CREATE INDEX `fk_relation_personne2_idx` ON `buenosaires`.`relation` (`pers_destination_id` ASC);
 
@@ -182,7 +182,7 @@ CREATE INDEX `fk_relation_status1_idx` ON `buenosaires`.`relation` (`statut_id` 
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`acte_has_relation`  //  *** ok 210212
+-- Table `buenosaires`.`acte_has_relation`  //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`acte_has_relation` ;
 
@@ -202,13 +202,13 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`acte_has_relation` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_acte_has_relation_relation1_idx` ON `buenosaires`.`acte_has_relation` (`relation_id` ASC); --  //  *** ok 210212
+CREATE INDEX `fk_acte_has_relation_relation1_idx` ON `buenosaires`.`acte_has_relation` (`relation_id` ASC); --  //  *** ok 210214
 
 CREATE INDEX `fk_acte_has_relation_acte1_idx` ON `buenosaires`.`acte_has_relation` (`acte_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`condition`  //  *** ok 210212
+-- Table `buenosaires`.`condition`  //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`condition` ;
 
@@ -230,14 +230,14 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`condition` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_cond_source1_idx` ON `buenosaires`.`condition` (`source_id` ASC);  --  //  *** ok 210212
+CREATE INDEX `fk_cond_source1_idx` ON `buenosaires`.`condition` (`source_id` ASC);  --  //  *** ok 210214
 
 CREATE INDEX `fk_cond_personne1_idx` ON `buenosaires`.`condition` (`personne_id` ASC);
 
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`acte_has_condition` //  *** ok 210212
+-- Table `buenosaires`.`acte_has_condition` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`acte_has_condition` ;
 
@@ -257,13 +257,13 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`acte_has_condition` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_acte_has_condition_condition1_idx` ON `buenosaires`.`acte_has_condition` (`condition_id` ASC); --  //  *** ok 210212
+CREATE INDEX `fk_acte_has_condition_condition1_idx` ON `buenosaires`.`acte_has_condition` (`condition_id` ASC); --  //  *** 
 
 CREATE INDEX `fk_acte_has_condition_acte1_idx` ON `buenosaires`.`acte_has_condition` (`acte_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`variable` //  *** ok 210212
+-- Table `buenosaires`.`variable` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`variable` ;
 
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`variable` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Data for table `buenosaires`.`variable`  //  *** ok 210212
+-- Data for table `buenosaires`.`variable`  //  *** ok 210214
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `buenosaires`;

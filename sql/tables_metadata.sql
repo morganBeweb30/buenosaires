@@ -12,7 +12,7 @@ USE `buenosaires` ;
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`statut`
+-- Table `buenosaires`.`statut`    -- //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`statut` ;
 
@@ -24,7 +24,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Data for table `buenosaires`.`statut`
+-- Data for table `buenosaires`.`statut`  --  //  *** ok 210214
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `buenosaires`;
@@ -39,7 +39,7 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`source`
+-- Table `buenosaires`.`source` --  //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`source` ;
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`source` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Data for table `buenosaires`.`source`
+-- Data for table `buenosaires`.`source`    --  //  *** ok 210214
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `buenosaires`;

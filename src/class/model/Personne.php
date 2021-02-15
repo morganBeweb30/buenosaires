@@ -50,7 +50,10 @@ class Personne implements DatabaseIO {
         }
         $this->prenoms[] = $prenom;
 	    $str = $this->prenoms_str;
-	    $this->prenoms_str = ($str == "" ? "" : $str . " ") . $prenom->to_string();
+      $testprenom = $this->prenoms_str = ($str == "" ? "" : $str . " ") . $prenom->to_string(); /*  ***/
+      echo '<br>'.prenom.'<br>';  /*  ***/
+      printf($testprenom);  /* cf add_prenom.txt ***/
+      echo '<br>';  /*  ***/
     }
 
     public function add_nom($nom){
@@ -96,6 +99,7 @@ class Personne implements DatabaseIO {
         $this->xml = $xml;
     }
 
+    //  docu ***
     public function is_valid(){
         return count($this->prenoms) > 0 || count($this->noms) > 0;
     }

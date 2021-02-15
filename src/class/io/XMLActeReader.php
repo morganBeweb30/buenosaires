@@ -160,7 +160,7 @@
             }
 
             //  docu ***
-            //  instanciation d'un objet Acte (/src/class/model/Acte.php)
+            //  instanciation d'un objet Acte (/src/class/model/Acte.php
             $acte = new Acte($acte_id);
             $acte->source_id = $this->source_id;
             $this->read_acte_node($acte, $xml_acte);
@@ -185,8 +185,11 @@
 
         //  PUBLIC FUNCTIONS   //
 
+        //  docu ***
+        //  stocke les éléments du contenu de l'acte
         function read_acte_node($acte, $xml_acte){
           foreach($xml_acte->children() as $xml_child){
+            var_dump($xml_child); /* ok tout a l'air bon / cf /morgan/read_acte_node.txt ***/
             switch($xml_child->getName()){
               case "date":
                   $acte->set_date($xml_child->__toString());
@@ -200,13 +203,13 @@
               case "temoins":
                   foreach($xml_child->children() as $xml_temoin){
                     if($xml_temoin->getName() === "temoin")
-                      $acte->add_temoin($this->read_personne_node($xml_temoin));
+                      $acte->add_temoin($this->read_personne_node($xml_temoin));  //  *** add_temoin($temoin) depuis acte.php
                   }
                   break;
               case "parrains":
                   foreach($xml_child->children() as $xml_parrain){
                       if($xml_parrain->getName() === "parrain")
-                          $acte->add_parrain($this->read_personne_node($xml_parrain));
+                          $acte->add_parrain($this->read_personne_node($xml_parrain));  //  *** add_parrain($parrain) depuis acte.php
                   }
                   break;
             }
@@ -216,6 +219,7 @@
           $acte->set_contenu($xml_str);
         }
 
+        //  docu  ****  210215
         function read_personne_node($xml_personne){
             $personne = new Personne();
             $personne->set_xml($xml_personne);
@@ -290,10 +294,10 @@
             $acte->set_contenu($xml_str);
         }
 
-	function update_id_if_obj_ok($obj, $xml_element){
-	  if(isset($obj, $obj->id) && $obj->is_valid())
-	    $this->update_attribute($xml_element, "id", $obj->id);
-	}
+        function update_id_if_obj_ok($obj, $xml_element){
+          if(isset($obj, $obj->id) && $obj->is_valid())
+            $this->update_attribute($xml_element, "id", $obj->id);
+        }
 
         function update_attribute_parents($epouxse, $xml_element){
             foreach($xml_element->children() as $xml_parent){

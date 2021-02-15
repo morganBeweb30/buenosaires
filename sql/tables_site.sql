@@ -9,7 +9,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Table `buenosaires`.`utilisateurs` //  *** ok 210212
+-- Table `buenosaires`.`utilisateurs` //  *** ok 210214
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `buenosaires`.`utilisateurs` ;
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `buenosaires`.`utilisateurs` (
 ENGINE = InnoDB;
 
 --
--- Dumping data for table `utilisateurs`  //  *** ok 210212
+-- Dumping data for table `utilisateurs`  //  *** ok 210214
 --
 
 LOCK TABLES `utilisateurs` WRITE;

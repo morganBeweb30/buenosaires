@@ -77,7 +77,7 @@ CREATE TABLE `acte_has_relation` (
 --/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `attribut`
+-- Table structure for table `attribut`   --  //  *** ok 210214
 --
 
 DROP TABLE IF EXISTS `attribut`;
@@ -94,14 +94,14 @@ CREATE TABLE `attribut` (
 -- Dumping data for table `attribut`
 --
 
-LOCK TABLES `attribut` WRITE;
+LOCK TABLES `attribut` WRITE;   --  //  *** ok 210214
 --/*!40000 ALTER TABLE `attribut` DISABLE KEYS */;
 INSERT INTO `attribut` VALUES (1,'de la'),(2,'de'),(3,'y');
 --/*!40000 ALTER TABLE `attribut` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `categorie`
+-- Table structure for table `categorie`  --  //  *** ok 210214
 --
 
 DROP TABLE IF EXISTS `categorie`;
@@ -174,7 +174,7 @@ CREATE TABLE `nom_personne` (
 --
 -- vieux truc de la version d'Axelle, on garde pas
 
-DROP TABLE IF EXISTS `periode`;
+DROP TABLE IF EXISTS `periode`;   --  //  *** ok 210214
 --/*!40101 SET @saved_cs_client     = @@character_set_client */;
 --/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `periode` (

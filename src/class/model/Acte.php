@@ -40,6 +40,7 @@
 
     function set_epoux($epoux){
         $this->epoux = $epoux;
+        // var_dump($epoux); /* cf /morgan/epoux.txt pour l'output ***/
     }
 
     function set_epouse($epouse){
@@ -51,11 +52,12 @@
         $this->date_start = $dates[0];
         $this->date_end = $dates[1];
     }
-    //  pourquoi add_temoin et pas set_temoin ? ***
+    //  add_temoin($temoin) appelée dans XMLActeReader.php ***
     function add_temoin($temoin){
         $this->temoins[] = $temoin;
+        // print_r($temoin); /* cf /morgan/temoin.txt pour l'output ***/
     }
-    //  idem pourquoi add_parrain / set_parrain ? ***
+    //  add_parrain($parrain) appelée dans XMLActeReader.php ***
     function add_parrain($parrain){
         $this->parrains[] = $parrain;
     }
@@ -65,7 +67,7 @@
 
       if(isset($personne->id) && $personne->is_valid()){    //  depuis Personne.php
         foreach($personne->relations as $relation)
-            $mysqli->into_db_acte_has_relation($this, $relation); //  j'en étais là ****
+            $mysqli->into_db_acte_has_relation($this, $relation); //  j'en étais là vendredi 210212 ****
 
         foreach($personne->conditions as $condition)
             $mysqli->into_db_acte_has_condition($this, $condition);
@@ -86,6 +88,12 @@
             "contenu" => $contenu
         ];
 
+        //  docu ok ***
+        //  affiche l'id de l'acte et le contenu
+        // echo '<pre>';
+        // print_r($values);
+        // echo '</pre>';
+
         return $mysqli->insert(
             "acte_contenu",
             $values,
@@ -94,7 +102,6 @@
 
     function get_contenu(){
         global $mysqli;
-
         $result = $mysqli->select("acte_contenu", ["contenu"], "acte_id='$this->id'");
         if($result != FALSE && $result->num_rows == 1){
             $row = $result->fetch_assoc();
@@ -137,7 +144,7 @@
 
     public function values_into_db(){
       $values = [];
-      if(isset($this->epoux, $this->epoux->id) && $this->epoux->is_valid())
+      if(isset($this->epoux, $this->epoux->id) && $this->epoux->is_valid())    //  *** indiquer d'où vient is_valid()
           $values["epoux"] = $this->epoux->id;
       if(isset($this->epouse, $this->epouse->id) && $this->epouse->is_valid())
           $values["epouse"] = $this->epouse->id;
@@ -146,8 +153,8 @@
       if(isset($this->date_end))
           $values["date_end"] = $this->date_end;
       
-      foreach($values as $value) 
-        // echo '<br>'.$value;   /*  ***/
+      // foreach($values as $value) //  ok
+      //   echo '<br>'.$value;   /* affiche l'id de l'époux et celle de l'épouse + la date de l'acte 2x (start et ind) ok ***/
       return $values;
     }
 
@@ -166,7 +173,7 @@
       foreach($this->temoins as $temoin){
         if($temoin->is_valid()){
           if($valid_epoux)
-              $temoin->add_relation($temoin, $this->epoux, STATUT_TEMOIN);
+              $temoin->add_relation($temoin, $this->epoux, STATUT_TEMOIN);  //  *** indiquer d'où vient STATUT_TEMOIN
           if($valid_epouse)
               $temoin->add_relation($temoin, $this->epouse, STATUT_TEMOIN);
         }
@@ -175,7 +182,7 @@
       foreach($this->parrains as $parrain){
         if($parrain->is_valid()){
           if($valid_epoux)
-              $parrain->add_relation($parrain, $this->epoux, STATUT_PARRAIN);
+              $parrain->add_relation($parrain, $this->epoux, STATUT_PARRAIN);  //  *** indiquer d'où vient STATUT_PARRAIN
           if($valid_epouse)
               $parrain->add_relation($parrain, $this->epouse, STATUT_PARRAIN);
         }
@@ -183,7 +190,7 @@
 
       if($valid_epoux && $valid_epouse){
           //$this->epouse->add_relation($this->epoux, $this->epouse, STATUT_EPOUX);
-          $this->epouse->add_relation($this->epouse, $this->epoux, STATUT_EPOUSE);
+          $this->epouse->add_relation($this->epouse, $this->epoux, STATUT_EPOUSE);  //  *** indiquer d'où vient STATUT_EPOUSE
       }
 
       if(isset($this->epoux))
