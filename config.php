@@ -36,31 +36,31 @@ define("SOURCE_DEFAULT_ID", 1);
 
 // level access name
 $level_access_name = [
-    0 => "Visiteur",
-    1 => "Lecteur",
-    2 => "Editeur",
-    3 => "Administrateur"
+  0 => "Visiteur",
+  1 => "Lecteur",
+  2 => "Editeur",
+  3 => "Administrateur"
 ];
 
 // RIGHT LEVEL ACCESS PAGES
 $access_pages  = [
-    "" => 0,
-    "/" => 0,
-    "import" => 2,
-    "export" => 2,
-    "acte" => 1,
-    "personne" => 1,
-    // je désactive fusion et dissoc en attendant le bug fix
-    "fusion" => 3,
-    "dissocier" => 3,
-    //
-    "administration" => 3,
-    "logs" => 3,
-    "table" => 1,
-    "recherche" => 1,
-    "supprimer" => 2,
-    "auto_complete_personne" => 1,
-    "test" => 3
+  "" => 0,
+  "/" => 0,
+  "import" => 2,
+  "export" => 2,
+  "acte" => 1,
+  "personne" => 1,
+  // je désactive fusion et dissoc en attendant le bug fix
+  "fusion" => 3,
+  "dissocier" => 3,
+  //
+  "administration" => 3,
+  "logs" => 3,
+  "table" => 1,
+  "recherche" => 1,
+  "supprimer" => 2,
+  "auto_complete_personne" => 1,
+  "test" => 3
 ]
 
  ?>

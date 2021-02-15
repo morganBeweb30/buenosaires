@@ -8,101 +8,101 @@ include_once(ROOT."src/class/model/Condition.php");
 
 class Personne implements DatabaseIO {
 
-  /*  remplacer "var" par "public"  ***/
-    var $id;
+  public $id;
 
-    var $prenoms;
-	var $prenoms_str;
-    var $noms;
-	var $noms_str;
-    var $relations;
-	var $relations_by_type;
-    var $conditions;
+  public $prenoms;
+  public $prenoms_str;
+  public $noms;
+  public $noms_str;
+  public $relations;
+  public $relations_by_type;
+  public $conditions;
 
-    var $pere;
-    var $mere;
+  public $pere;
+  public $mere;
 
-    var $xml;
+  public $xml;
 
-    var $is_updated_in_db;
+  public $is_updated_in_db;
 
-    /*  indiquer public  **/
-    function __construct($id = NULL){
-        $this->id = $id;
-        $this->prenoms = [];
-	    $this->prenoms_str = "";
-        $this->noms = [];
-	    $this->noms_str = "";
-        $this->conditions = [];
-        $this->relations = [];
-	    $this->relations_by_type = [];
-        $this->pere = NULL;
-        $this->mere = NULL;
-        $this->is_updated_in_db = FALSE;
+  public function __construct($id = NULL){
+    $this->id = $id;
+    $this->prenoms = [];
+    $this->prenoms_str = "";
+    $this->noms = [];
+    $this->noms_str = "";
+    $this->conditions = [];
+    $this->relations = [];
+    $this->relations_by_type = [];
+    $this->pere = NULL;
+    $this->mere = NULL;
+    $this->is_updated_in_db = FALSE;
+  }
+
+  public function add_prenom($prenom){
+    foreach($this->prenoms as $_prenom){
+      if((isset($_prenom->id, $prenom->id)
+          && $_prenom->id == $prenom->id)
+          || $_prenom->no_accent == $prenom->no_accent)
+        return;
     }
+    $this->prenoms[] = $prenom;
+    $str = $this->prenoms_str;
+    $testprenom = $this->prenoms_str = ($str == "" ? "" : $str . " ") . $prenom->to_string(); /*  ***/
+    echo '<br>'.prenom.'<br>';  /*  ***/
+    printf($testprenom);  /* cf add_prenom.txt ***/
+    echo '<br>';  /*  ***/
+  }
 
-    public function add_prenom($prenom){
-        foreach($this->prenoms as $_prenom){
-          if((isset($_prenom->id, $prenom->id)
-                  && $_prenom->id == $prenom->id)
-            || $_prenom->no_accent == $prenom->no_accent)
-            return;
+  public function add_nom($nom){
+    foreach($this->noms as $_nom){
+    if((isset($_nom->id, $nom->id)
+      && $_nom->id == $nom->id)
+      || ($_nom->no_accent == $nom->no_accent)){
+        if(isset($nom->attribut)){
+          $_nom->attribut = $nom->attribut;
         }
-        $this->prenoms[] = $prenom;
-	    $str = $this->prenoms_str;
-      $testprenom = $this->prenoms_str = ($str == "" ? "" : $str . " ") . $prenom->to_string(); /*  ***/
-      echo '<br>'.prenom.'<br>';  /*  ***/
-      printf($testprenom);  /* cf add_prenom.txt ***/
-      echo '<br>';  /*  ***/
+        return;
+      }
     }
+    $this->noms[] = $nom;
+    $str = $this->noms_str;
+    $this->noms_str = ($str == "" ? "" : $str . " ") . $nom->to_string();
+  }
 
-    public function add_nom($nom){
-        foreach($this->noms as $_nom){
-        if((isset($_nom->id, $nom->id)
-            && $_nom->id == $nom->id)
-          || ($_nom->no_accent == $nom->no_accent)){
-            if(isset($nom->attribut)){
-              $_nom->attribut = $nom->attribut;
-            }
-            return;
-          }
-        }
-        $this->noms[] = $nom;
-	    $str = $this->noms_str;
-	    $this->noms_str = ($str == "" ? "" : $str . " ") . $nom->to_string();
-    }
+  public function add_condition($text, $source_id){
+    $this->conditions[] = new Condition(NULL, $text, $this, $source_id);
+  }
 
-    public function add_condition($text, $source_id){
-        $this->conditions[] = new Condition(NULL, $text, $this, $source_id);
-    }
+  public function add_relation($personne_source, $personne_destination, $statut_id){
+    $this->relations[] = new Relation(
+      NULL,
+      $personne_source,
+      $personne_destination,
+      $statut_id
+    );
+  }
 
-    public function add_relation($personne_source, $personne_destination, $statut_id){
-        $this->relations[] = new Relation(
-            NULL,
-            $personne_source,
-            $personne_destination,
-            $statut_id
-        );
-    }
+  public function set_pere($pere){
+    $this->add_relation($pere, $this, STATUT_PERE);
+    $this->pere = $pere;
+  }
 
-    public function set_pere($pere){
-        $this->add_relation($pere, $this, STATUT_PERE);
-        $this->pere = $pere;
-    }
+  public function set_mere($mere){
+    $this->add_relation($mere, $this, STATUT_MERE);
+    $this->mere = $mere;
+  }
 
-    public function set_mere($mere){
-        $this->add_relation($mere, $this, STATUT_MERE);
-        $this->mere = $mere;
-    }
+  public function set_xml($xml){
+    $this->xml = $xml;
+  }
 
-    public function set_xml($xml){
-        $this->xml = $xml;
-    }
+  //  docu ***
+  public function is_valid(){
+    return count($this->prenoms) > 0 || count($this->noms) > 0;
+  }
 
-    //  docu ***
-    public function is_valid(){
-        return count($this->prenoms) > 0 || count($this->noms) > 0;
-    }
+  //  PRIVATE METHODS   //
 
 	// En fait faudrait faire de relations_by_type l'unique
 	// champ relations, sinon va y'avoir des problème de synchro
@@ -118,33 +118,33 @@ class Personne implements DatabaseIO {
 	  $est_parrain = [];
 
 	  foreach($this->relations as $relation) {
-        $is_source = ($this->id == $relation->personne_source->id);
+      $is_source = ($this->id == $relation->personne_source->id);
 
-	    switch($relation->statut_id){
-	    case STATUT_EPOUX:
-	    case STATUT_EPOUSE:
-	      $mariage[] = $relation;
-	      break;
-	    case STATUT_PERE:
-	    case STATUT_MERE:
-	      if($is_source)
-		$enfants[] = $relation;
-	      else
-		$parents[] = $relation;
-	      break;
-	    case STATUT_TEMOIN:
-	      if($is_source)
-		$est_temoin[] = $relation;
-	      else
-		$a_temoins[] = $relation;
-	      break;
-	    case STATUT_PARRAIN:
-	      if($is_source)
-		$est_parrain[] = $relation;
-	      else
-		$a_parrains[] = $relation;
-	      break;
-	    }
+      switch($relation->statut_id){
+        case STATUT_EPOUX:
+        case STATUT_EPOUSE:
+          $mariage[] = $relation;
+          break;
+        case STATUT_PERE:
+        case STATUT_MERE:
+          if($is_source)
+            $enfants[] = $relation;
+          else
+            $parents[] = $relation;
+          break;
+        case STATUT_TEMOIN:
+          if($is_source)
+            $est_temoin[] = $relation;
+          else
+            $a_temoins[] = $relation;
+          break;
+        case STATUT_PARRAIN:
+          if($is_source)
+            $est_parrain[] = $relation;
+          else
+            $a_parrains[] = $relation;
+          break;
+      }
 	  }
 
 	  $match = [
@@ -161,6 +161,8 @@ class Personne implements DatabaseIO {
 	    $this->relations_by_type[$word] = $list;
 	  }
 	}
+
+  //  PUBLIC    //
 
 	public function get_relations_by_type() {
 	  $this->dispatch_relations_by_type();
@@ -179,22 +181,22 @@ class Personne implements DatabaseIO {
 
   public function result_from_db($row){
     if($row == NULL)
-        return;
+      return;
     $this->id = $row["id"];
   }
 
   public function values_into_db(){
-      return [];
+    return [];
   }
 
   public function pre_into_db(){
     global $mysqli;
 
     if(!$this->is_valid())
-        return FALSE;
+      return FALSE;
 
     foreach($this->prenoms as $prenom){
-        $mysqli->into_db($prenom);
+      $mysqli->into_db($prenom);
     }
 
     foreach($this->noms as $nom){
@@ -214,8 +216,8 @@ class Personne implements DatabaseIO {
     $mysqli->delete("prenom_personne", "personne_id='$this->id'");
     
     foreach($this->prenoms as $prenom) {
-        $mysqli->into_db_prenom_personne($this, $prenom, $i);
-        $i++;
+      $mysqli->into_db_prenom_personne($this, $prenom, $i);
+      $i++;
     }
 
     $mysqli->delete("nom_personne", "personne_id='$this->id'");
@@ -228,17 +230,19 @@ class Personne implements DatabaseIO {
     $mysqli->end_transaction();
 
     foreach($this->relations as $relation)
-        $mysqli->into_db($relation);
+      $mysqli->into_db($relation);
 
     foreach($this->conditions as $condition)
-        $mysqli->into_db($condition);
+      $mysqli->into_db($condition);
 
     if(isset($this->xml)){
       $attributesXML = $this->xml->attributes();
       if(!isset($attributesXML["id"]))
-          $this->xml->addAttribute("id", "$this->id");
+        $this->xml->addAttribute("id", "$this->id");
     }
   }
+
+  //  PRIVATE METHODS   //
 
   private function is_in($table)
   // 'condition', 'relation', 'acte'
@@ -274,6 +278,8 @@ class Personne implements DatabaseIO {
     return FALSE;
   }
 
+  //  PUBLIC    //
+
   public function remove_from_db($anyway = FALSE) {
     global $mysqli;
 
@@ -301,10 +307,10 @@ class Personne implements DatabaseIO {
   }
 
 	/*
-	  Import from db is in src/io/IO/Database.php from_db()
+	  Import from db is in src/class/io/Database.php from_db()
 	  (which is ugly i know)
 	 */
 
-    }
+}
 
 ?>
