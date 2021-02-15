@@ -51,9 +51,9 @@ class Personne implements DatabaseIO {
         $this->prenoms[] = $prenom;
 	    $str = $this->prenoms_str;
       $testprenom = $this->prenoms_str = ($str == "" ? "" : $str . " ") . $prenom->to_string(); /*  ***/
-      echo '<br>'.prenom.'<br>';  /*  ***/
-      printf($testprenom);  /* cf add_prenom.txt ***/
-      echo '<br>';  /*  ***/
+      // echo '<br>'.prenom.'<br>';  /*  ***/
+      // printf($testprenom);  /* affiche Domingo uniquement (acte 7604) ***/
+      // echo '<br>';  /*  ***/
     }
 
     public function add_nom($nom){
