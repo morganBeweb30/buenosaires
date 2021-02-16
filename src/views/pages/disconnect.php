@@ -1,6 +1,6 @@
 <?php
 
-    $page_title = "Déconnexion";
+  $page_title = "Déconnexion";
 
 ?>
 
